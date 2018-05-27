@@ -1,0 +1,24 @@
+# byte-compiled / optimized
+__pycache__/
+*.py[cod]
+
+# build and distribution directories
+build/
+dist/
+example/build/
+example/dist/
+*.eggs/
+*.egg-info/
+
+# test and coverage data
+.cache/
+.coverage
+coverage_report/
+
+# virtual environment
+venv/
+example/env/
+
+# editor files
+.idea/
+.vscode/

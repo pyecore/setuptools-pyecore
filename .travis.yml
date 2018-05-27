@@ -1,0 +1,16 @@
+language: python
+
+python:
+  - '3.3'
+  - '3.4'
+  - '3.5'
+  - '3.6'
+
+install:
+- python -m pip install -U pip setuptools
+- pip install -r requirements.txt
+- pip install .
+- pip list
+
+before_deploy:
+  python setup.py bdist_wheel

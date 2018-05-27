@@ -1,1 +1,4 @@
+codecov
+pytest
+pytest-cov
 wheel

@@ -11,5 +11,12 @@ install:
 - pip install .
 - pip list
 
+script:
+  # run unit tests
+  - python setup.py test --addopts "--cov=setuptools_pyecore --cov-report html"
+
+after_success:
+  codecov
+
 before_deploy:
   python setup.py bdist_wheel

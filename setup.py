@@ -5,6 +5,9 @@ import setuptools
 
 # need to guard script here due to reentrance while testing multiprocessing:
 if __name__ == '__main__':
+    needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
+    pytest_runner_opt = ['pytest-runner>=4.0,<5dev'] if needs_pytest else []
+
     setuptools.setup(
         name='setuptools-pyecore',
         version='0.0.1',
@@ -16,7 +19,7 @@ if __name__ == '__main__':
         },
         python_requires='>=3.4',
         tests_require=['pytest'],
-        setup_requires=['pyecoregen'],
+        setup_requires=['pyecoregen'] + pytest_runner_opt,
         url='https://github.com/ferraith/setuptools-pyecore',
         license='BSD 3-Clause',
         author='Andreas Schmidl',

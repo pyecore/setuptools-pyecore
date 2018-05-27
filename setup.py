@@ -14,7 +14,7 @@ if __name__ == '__main__':
                 'pyecore = setuptools_pyecore.command:PyEcoreCommand'
             ]
         },
-        python_requires='>=3.3',
+        python_requires='>=3.4',
         tests_require=['pytest'],
         setup_requires=['pyecoregen'],
         url='https://github.com/ferraith/setuptools-pyecore',
@@ -31,7 +31,6 @@ if __name__ == '__main__':
             'Intended Audience :: Developers',
             'Topic :: Software Development',
             'License :: OSI Approved :: BSD License',
-            'Programming Language :: Python :: 3.3',
             'Programming Language :: Python :: 3.4',
             'Programming Language :: Python :: 3.5',
             'Programming Language :: Python :: 3.6'

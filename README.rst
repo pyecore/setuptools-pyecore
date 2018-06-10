@@ -1,7 +1,7 @@
 setuptools-pyecore
 ==================
 
-|Build Status| |Codecov Status|
+|Build Status| |Coverage Status|
 
 A ``setuptools`` command for generating Python code from PyEcore models.
 
@@ -9,6 +9,6 @@ A ``setuptools`` command for generating Python code from PyEcore models.
    :target: https://travis-ci.org/ferraith/setuptools-pyecore
    :alt: Build Status
 
-.. |Codecov Status| image:: https://codecov.io/gh/ferraith/setuptools-pyecore/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/ferraith/setuptools-pyecore
-   :alt: Codecov Status
+.. |Coverage Status| image:: https://coveralls.io/repos/github/ferraith/setuptools-pyecore/badge.svg?branch=master
+   :target: https://coveralls.io/github/ferraith/setuptools-pyecore?branch=master
+   :alt: Coverage Status

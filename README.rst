@@ -5,8 +5,8 @@ setuptools-pyecore
 
 A ``setuptools`` command for generating Python code from PyEcore models.
 
-.. |Build Status| image:: https://travis-ci.org/ferraith/setuptools-pyecore.svg
-   :target: https://travis-ci.org/ferraith/setuptools-pyecore
+.. |Build Status| image:: https://travis-ci.com/ferraith/setuptools-pyecore.svg
+   :target: https://travis-ci.com/ferraith/setuptools-pyecore
    :alt: Build Status
 
 .. |Coverage Status| image:: https://coveralls.io/repos/github/ferraith/setuptools-pyecore/badge.svg?branch=master

@@ -6,17 +6,17 @@ python:
   - '3.6'
 
 install:
-- python -m pip install -U pip setuptools
-- pip install -r requirements.txt
-- pip install .
-- pip list
+  - python -m pip install -U pip setuptools
+  - pip install -r requirements.txt
+  - pip install .
+  - pip list
 
 script:
   # run unit tests
   - python setup.py test --addopts "--cov=setuptools_pyecore --cov-report html"
 
 after_success:
-  codecov
+  - coveralls
 
 before_deploy:
   python setup.py bdist_wheel

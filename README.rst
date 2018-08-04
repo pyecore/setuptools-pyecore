@@ -71,3 +71,66 @@ For a smooth user experience it's recommended to pass ``setuptools-pyecore`` usi
     )
 
 Before generating Python code from a given Ecore model ``setuptools`` will automatically check the Python environment and download ``setuptools-pyecore`` from `PyPI <https://pypi.org>`__ if it's missing. During the installation of the project package ``pip`` will install ``pyecore`` into the Python environment.
+
+Configuration
+*************
+
+``setuptools-pyecore`` provides two possibilities to configure the pyecore generator.
+
+All options can be passed on the command line after the ``pyecore`` command:
+
+::
+
+    > python setup.py pyecore --auto-register-package
+
+It's also possible to pass several options to ``pyecoregen`` or execute multiple commands at once:
+
+::
+
+    > python setup.py pyecore --auto-register-package --output "default=gen" bdist_wheel
+
+See ``python setup.py pyecore --help`` for available command line options:
+
+::
+
+    > python setup.py pyecore --help
+    ...
+    Options for 'PyEcoreCommand' command:
+      --ecore-models (-e)      specify Ecore models to generate code for
+      --output (-o)            specify directories where output is generated
+      --user-modules           dotted names of modules with user-provided mixins
+                               to import from generated classes
+      --auto-register-package  Generate package auto-registration for the PyEcore
+                               'global_registry'
+    ...
+
+The ``pyecoregen`` documentation explains all `command line options <https://github.com/pyecore/pyecoregen/blob/master/README.rst>`__ in detail.
+
+Apart from passing options on the command line it's also possible to add a dedicated ``[pyecore]`` section to ``setup.cfg``. The following example section contains all available options:
+
+.. code:: ini
+
+    [pyecore]
+    # Specify Ecore models to generate code for; default: None
+    #ecore-models = <ecore-model> [<ecore-model> ...]
+    # Specify directories where output is generated; default: ./
+    #output = [default=<output path>]
+    #         [<model>=<output path> ...]
+    # Dotted names of modules with user-provided mixins to import from generated classes; default: None
+    #user-modules = [<model>=<user module>]
+    #               [<model>=<user module> ...]
+    # Generate package auto-registration for the PyEcore 'global_registry' (yes|no); default: no
+    #auto-register-package = no
+
+A reference configuration is provided in the ``resources`` directory.
+
+Sample
+******
+
+Besides the ``setuptools-pyecore`` source code a sample project called ``library`` is provided in the ``example`` directory. This sample consists of the Ecore model ``library`` and a setup script. During the execution of ``setuptools-pyecore`` a Python package will be generated into the ``library`` package directory representing the classes from the Ecore model.
+
+To generate code out of the Ecore model and build a ``library`` wheel package execute the following command:
+
+::
+
+    > python setup.py pyecore bdist_wheel

@@ -126,7 +126,7 @@ A reference configuration is provided in the ``resources`` directory.
 Sample
 ******
 
-Besides the ``setuptools-pyecore`` source code a sample project called ``library`` is provided in the ``example`` directory. This sample consists of the Ecore model ``library`` and a setup script. During the execution of ``setuptools-pyecore`` a Python package will be generated into the ``library`` package directory representing the classes from the ``library`` Ecore model.
+Besides the ``setuptools-pyecore`` source code a sample project called ``library`` is provided in the ``samples`` directory. This sample consists of the Ecore model ``library`` and a setup script. During the execution of ``setuptools-pyecore`` a Python package will be generated into the ``library`` package directory representing the classes from the ``library`` Ecore model.
 
 To generate code out of the Ecore model and build a ``library`` wheel package execute the following command:
 

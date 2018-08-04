@@ -114,20 +114,19 @@ Apart from passing options on the command line it's also possible to add a dedic
     # Specify Ecore models to generate code for; default: None
     #ecore-models = <ecore-model> [<ecore-model> ...]
     # Specify directories where output is generated; default: ./
-    #output = [default=<output path>]
-    #         [<model>=<output path> ...]
+    output = default=gen
     # Dotted names of modules with user-provided mixins to import from generated classes; default: None
     #user-modules = [<model>=<user module>]
     #               [<model>=<user module> ...]
     # Generate package auto-registration for the PyEcore 'global_registry' (yes|no); default: no
-    #auto-register-package = no
+    auto-register-package = yes
 
 A reference configuration is provided in the ``resources`` directory.
 
 Sample
 ******
 
-Besides the ``setuptools-pyecore`` source code a sample project called ``library`` is provided in the ``example`` directory. This sample consists of the Ecore model ``library`` and a setup script. During the execution of ``setuptools-pyecore`` a Python package will be generated into the ``library`` package directory representing the classes from the Ecore model.
+Besides the ``setuptools-pyecore`` source code a sample project called ``library`` is provided in the ``example`` directory. This sample consists of the Ecore model ``library`` and a setup script. During the execution of ``setuptools-pyecore`` a Python package will be generated into the ``library`` package directory representing the classes from the ``library`` Ecore model.
 
 To generate code out of the Ecore model and build a ``library`` wheel package execute the following command:
 

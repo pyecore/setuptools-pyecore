@@ -1,4 +1,6 @@
+import logging
 import pathlib
+import unittest.mock
 
 import pytest
 import setuptools.dist
@@ -64,3 +66,23 @@ class TestPyEcoreCommand:
 
         assert pathlib.Path(command.user_modules['a']) == pathlib.Path('input/a.pkg.module')
         assert pathlib.Path(command.user_modules['b']) == pathlib.Path('input/b.pkg.module')
+
+    test_ids_configure_logging = ['warning', 'info', 'debug', 'undefined']
+
+    test_data_configure_logging = [
+        (0, logging.WARNING),
+        (1, logging.INFO),
+        (2, logging.DEBUG),
+        (3, logging.WARNING)
+    ]
+
+    @unittest.mock.patch('logging.basicConfig')
+    @pytest.mark.parametrize('configured_verbosity, expected_log_level',
+                             test_data_configure_logging, ids=test_ids_configure_logging)
+    def test_configure_logging(self, mock_basic_config, command, configured_verbosity,
+                               expected_log_level):
+        command.distribution.verbose = configured_verbosity
+        command._configure_logging()
+
+        mock_basic_config.assert_called_once_with(format=unittest.mock.ANY,
+                                                  level=expected_log_level)

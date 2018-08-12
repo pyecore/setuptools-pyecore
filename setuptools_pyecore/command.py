@@ -1,4 +1,6 @@
 """Implements the setuptools command 'pyecore'."""
+import collections
+import logging
 import shlex
 
 import setuptools
@@ -62,9 +64,22 @@ class PyEcoreCommand(setuptools.Command):
             tokens = shlex.split(self.user_modules, comments=True)
             self.user_modules = dict(t.split('=', 1) for t in tokens)
 
+    def _configure_logging(self):
+        """Configures logging using global verbosity level of distutils."""
+        loglevel_map = collections.defaultdict(lambda: logging.WARNING)
+        loglevel_map.update({
+            0: logging.WARNING,
+            1: logging.INFO,
+            2: logging.DEBUG
+        })
+        logging.basicConfig(
+            format='%(asctime)s %(levelname)s [%(name)s] %(message)s',
+            level=loglevel_map[self.distribution.verbose]
+        )
+
     def run(self):
         """Performs all tasks necessary to generate Python packages representing the classes from
         Ecore models. This process is controlled by the user options passed on the command line or
         set internally to default values.
         """
-        pass
+        self._configure_logging()

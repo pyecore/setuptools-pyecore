@@ -44,7 +44,7 @@ class PyEcoreCommand(setuptools.Command):
         defaults may be overridden by other commands, by the setup script, by config files, or by
         the command-line.
         """
-        self.ecore_models = ''
+        self.ecore_models = None
         self.output = ''
         self.user_modules = ''
         self.auto_register_package = 0
@@ -57,7 +57,8 @@ class PyEcoreCommand(setuptools.Command):
         base_path = pathlib.Path('.')
 
         # parse ecore-models option
-        self.ecore_models = shlex.split(self.ecore_models, comments=True)
+        if self.ecore_models:
+            self.ecore_models = shlex.split(self.ecore_models, comments=True)
 
         # parse output option
         tokens = shlex.split(self.output, comments=True)
@@ -128,8 +129,8 @@ class PyEcoreCommand(setuptools.Command):
         # load each Ecore model
         for ecore_xmi_file in ecore_xmi_files:
             with self._load_ecore_model(ecore_xmi_file) as resource:
-                # skip Ecore models aren't passed by the user
-                if resource.name not in self.ecore_models:
+                # if user passed Ecore models skip models aren't in list
+                if self.ecore_models and resource.name not in self.ecore_models:
                     continue
 
                 # configure EcoreGenerator

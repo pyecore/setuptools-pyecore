@@ -123,6 +123,22 @@ Apart from passing options on the command line it's also possible to add a dedic
 
 A reference configuration is provided in the ``resources`` directory.
 
+``pyecoregen`` inherits the log level globally configured for ``setuptools``. To set the verbosity to a certain log level pass the global options ``verbose`` or ``quiet`` straight before the ``pyecore`` command on the command line:
+
+::
+
+    > python setup.py --verbose pyecore
+
+Alternatively, you can add these options to the ``[global]`` section of your ``setup.cfg``:
+
+.. code:: ini
+
+    [global]
+    # Run verbosely (yes|no); default: yes
+    #verbose = yes
+    # Run quietly and turns verbosity off (yes|no); default: no
+    quiet = yes
+
 Sample
 ******
 

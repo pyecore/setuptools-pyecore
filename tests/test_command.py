@@ -122,3 +122,17 @@ class TestPyEcoreCommand:
         assert m[0] == base_path / 'A.ecore'
         assert m[1] == base_path / 'B.ecore'
         assert m[2] == base_path / 'C.ecore'
+
+    @unittest.mock.patch('pyecore.resources.ResourceSet.get_resource')
+    @unittest.mock.patch('pyecore.resources.ResourceSet.remove_resource')
+    def test_load_ecore_model(self, mock_remove_resource, mock_get_resource, command):
+        p = pathlib.Path('standalone/A.ecore')
+
+        mock_resource = unittest.mock.MagicMock()
+        mock_get_resource.return_value = mock_resource
+
+        with command._load_ecore_model(p):
+            pass
+
+        mock_get_resource.assert_called_once_with(p.as_posix())
+        mock_remove_resource.assert_called_once_with(mock_resource)

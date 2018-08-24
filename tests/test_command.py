@@ -1,4 +1,5 @@
 import logging
+import os
 import pathlib
 import unittest.mock
 
@@ -6,6 +7,18 @@ import pytest
 import setuptools.dist
 
 from setuptools_pyecore.command import PyEcoreCommand
+
+
+@pytest.fixture(scope='module', autouse=True)
+def ch_resources_dir(request):
+    os.chdir('.')
+    init_dir = pathlib.Path.cwd()
+    local_dir = os.path.dirname(__file__)
+    os.chdir(os.path.join(local_dir, 'resources'))
+
+    def fin():
+        os.chdir(str(init_dir))
+    request.addfinalizer(fin)
 
 
 class TestPyEcoreCommand:
@@ -86,3 +99,26 @@ class TestPyEcoreCommand:
 
         mock_basic_config.assert_called_once_with(format=unittest.mock.ANY,
                                                   level=expected_log_level)
+
+    def test_find_ecore_xmi_files_empty(self, tmpdir, command):
+        model_dir = tmpdir.mkdir('model')
+        m = command._find_ecore_xmi_files(pathlib.Path(str(model_dir)))
+
+        assert len(m) == 0
+
+    def test_find_ecore_xmi_files_standalone(self, command):
+        base_path = pathlib.Path('standalone')
+        m = command._find_ecore_xmi_files(base_path)
+
+        assert len(m) == 1
+        assert m[0] == base_path / 'A.ecore'
+
+    def test_find_ecore_xmi_files_distributed(self, command):
+        base_path = pathlib.Path('distributed')
+        m = command._find_ecore_xmi_files(base_path)
+
+        assert len(m) == 3
+
+        assert m[0] == base_path / 'A.ecore'
+        assert m[1] == base_path / 'B.ecore'
+        assert m[2] == base_path / 'C.ecore'

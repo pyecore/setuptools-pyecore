@@ -18,7 +18,7 @@ class PyEcoreCommand(setuptools.Command):
     Ecore models starting from the base directory and generates a Python package for each found
     Ecore model.
 
-    :cvar _URL_PATTERN: Regular expression matching an URL
+    :cvar _ECORE_FILE_EXT: File extension of Ecore XMI file
     :cvar description: Description of ecore command
     :cvar user_options: Options which can be passed by the user
     :cvar boolean_options: Subset of user options which are binary

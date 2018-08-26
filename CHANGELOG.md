@@ -6,4 +6,13 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/ferraith/setuptools-pyecore/compare/943d95a...HEAD
+## [0.1.0] - 2018-08-26
+### Added
+- Command line user interface.
+- Discovery of Ecore models.
+- Code generation from Ecore models.
+- `library` sample project.
+- Reference config file.
+
+[Unreleased]: https://github.com/ferraith/setuptools-pyecore/compare/0.1.0...HEAD
+[0.1.0]: https://github.com/ferraith/setuptools-pyecore/compare/683af85...0.1.0

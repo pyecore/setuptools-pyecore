@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     setuptools.setup(
         name='setuptools-pyecore',
-        version='0.0.1',
+        version='0.1.0',
         packages=setuptools.find_packages(),
         entry_points={
             'distutils.commands': [
@@ -30,7 +30,7 @@ if __name__ == '__main__':
         platforms=['any'],
         keywords='setuptools model metamodel EMF Ecore code generator',
         classifiers=[
-            'Development Status :: 3 - Alpha',
+            'Development Status :: 4 - Beta',
             'Intended Audience :: Developers',
             'Topic :: Software Development',
             'License :: OSI Approved :: BSD License',

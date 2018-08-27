@@ -20,3 +20,27 @@ after_success:
 
 before_deploy:
   python setup.py bdist_wheel
+
+deploy:
+  - provider: releases
+    api_key:
+      secure: <ToDo>
+    file_glob: true
+    file: "dist/*.whl"
+    skip_cleanup: true
+    on:
+      repo: pyecore/setuptools-pyecore
+      tags: true
+      python: '3.6'
+
+  - provider: pypi
+    user: ferraith
+    password:
+      secure: PTagt2GZ8zHElE19PFecaBmGFkusUBVgA4khto4bbRC9sBDOYSFe3dN78pMfm1VhcBdHaD7RZVL6Ape6IB+s/0qC8OFzXtqchA6H/8+YZJfPYtm28E57EcZ+WsfocDe9qweAf7v6DvA8cGat2fmHc/N/l3f056sq60xu1soxHUZV0hgG6/0CCcXqSWjCkxyDrJZhTsz6Yt3YejAEA4Hi4PlNdwBGjBn/Mxg6VrjNT4QbWvo/ttnAPIIi4CbASuwuGu+7W/i2yV4kJeZHl+LIerM/hXEn71NBTYYMjEvd3EhOaDimnF/0DapggqD6K1eEORNOdamNxx4bo9A3adZ6U4scIXzgPc+6Bckm1AIe5ePsaej3nXyqGOvRt/B03TEboTLtdsPhwwACFTiYeoOB2FM1VYPRnrBuaWk6V0p/HBIqHt/kVjTpyaXVy4H1f49Gx2ZmjgOL/7QE1mRPiygq4cbmSVhIsC3BXt1umuopUxJLEwEpFD4kxsQKyWVRRp0lwknUGhn+nF+Oo39vEPnQHgx2xJIab3X6pdvIFNmabFPDemkXmXcw2ps4I5636SvbDJmYgYC90Fqlq4jthP01y8336cWqbGMy7esZ0lHVXyh/QsYwLUe8TLIXc/iFlC2OD9SC96pPwUUDJQC8LCREC47g/FbCBop1J/pg0V1T7q0=
+    distributions: sdist bdist_wheel
+    skip_cleanup: true
+    skip_upload_docs: true
+    on:
+      repo: ferraith/setuptools-pyecore
+      tags: true
+      python: '3.6'

@@ -14,5 +14,5 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 - `library` sample project.
 - Reference config file.
 
-[Unreleased]: https://github.com/ferraith/setuptools-pyecore/compare/0.1.0...HEAD
-[0.1.0]: https://github.com/ferraith/setuptools-pyecore/compare/683af85...0.1.0
+[Unreleased]: https://github.com/pyecore/setuptools-pyecore/compare/0.1.0...HEAD
+[0.1.0]: https://github.com/pyecore/setuptools-pyecore/compare/683af85...0.1.0

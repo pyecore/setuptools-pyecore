@@ -41,6 +41,6 @@ deploy:
     skip_cleanup: true
     skip_upload_docs: true
     on:
-      repo: ferraith/setuptools-pyecore
+      repo: pyecore/setuptools-pyecore
       tags: true
       python: '3.6'

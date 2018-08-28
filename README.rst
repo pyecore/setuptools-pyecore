@@ -11,6 +11,10 @@ setuptools-pyecore
    :target: https://coveralls.io/github/pyecore/setuptools-pyecore?branch=master
    :alt: Coverage Status
 
+.. |PyPI Version| image:: https://badge.fury.io/py/setuptools-pyecore.svg
+   :target: https://pypi.org/project/setuptools-pyecore
+   :alt: PyPI Version
+
 .. |License| image:: https://img.shields.io/github/license/pyecore/setuptools-pyecore.svg
     :target: https://raw.githubusercontent.com/pyecore/setuptools-pyecore/master/LICENSE
     :alt: License

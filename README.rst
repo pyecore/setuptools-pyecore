@@ -3,8 +3,8 @@ setuptools-pyecore
 
 |Build Status| |Coverage Status| |License|
 
-.. |Build Status| image:: https://travis-ci.com/pyecore/setuptools-pyecore.svg
-   :target: https://travis-ci.com/pyecore/setuptools-pyecore
+.. |Build Status| image:: https://travis-ci.org/pyecore/setuptools-pyecore.svg
+   :target: https://travis-ci.org/pyecore/setuptools-pyecore
    :alt: Build Status
 
 .. |Coverage Status| image:: https://coveralls.io/repos/github/pyecore/setuptools-pyecore/badge.svg?branch=master

@@ -24,7 +24,7 @@ before_deploy:
 deploy:
   - provider: releases
     api_key:
-      secure: <ToDo>
+      secure: fPYpiTTdpBQXFgF55rvxPpj0Hu7L29+6c9dxdjvQZiCV6FJCu1rMgukmt76x4Cg2tOdpytnFZXLP7lqo9g0KZnJVVrWRGWB7fch5xcz+kmOdwPqjA5L18vRybkuTczZdC1y4v9mHMpT58JA+N8zIy1oJN0UCb3ZrbLmZkiXLetHNW4vCDwR5OuNSnxhR0OQl0UQ8Z7JGDIXzVbUGmCWXJRAZLkTzViaTfQCDnu5H0zLWlQ8Y6NsOC1QBpSPhQIb9IKURiTKc1ze7VpULA5d/FJ5oDyY+FT6amgiqBw3sxbSHeH5ztb17IH5JEzAkKdPODwee/E/6oOf8Dnu9QlQctHRPfCXMFm+hPDaZHRx+JJIoU4/KX0jWU9aTr2K1CWtqDzRWtci1iOdF018YYAjKUaNcnC6JKtdJW7sSCtCyfzq6y2HTbpaqNJ/psJQhIapH4+YsxjWr0ap/PjR0eER1EfVsWtnDRnmpqVamXsBpo5qq1XfEPC6KVQfTqN2YFWkC0RwKLMnRCv3jg6gVjA1RNYwCLU+Ve0d8Kln4/9w3eYl2L8LKNCfdNq5HqCMhWo+5V5m242mhT+spKcVnndEuW4CeXkEtMgtSZW3Jnd9v5F18VECaHPJpFLVwZ377845jBt1LmTjZjY62fBp2qKYJbpHJlqLKZz4eU4CYT28Jlv8=
     file_glob: true
     file: "dist/*.whl"
     skip_cleanup: true

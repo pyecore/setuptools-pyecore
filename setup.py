@@ -20,7 +20,7 @@ if __name__ == '__main__':
         python_requires='>=3.4',
         tests_require=['pytest'],
         setup_requires=['pyecoregen'] + pytest_runner_opt,
-        url='https://github.com/ferraith/setuptools-pyecore',
+        url='https://github.com/pyecore/setuptools-pyecore',
         license='BSD 3-Clause',
         author='Andreas Schmidl',
         author_email='Andreas.Schmidl@gmail.com',

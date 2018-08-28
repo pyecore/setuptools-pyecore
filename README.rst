@@ -15,6 +15,10 @@ setuptools-pyecore
    :target: https://pypi.org/project/setuptools-pyecore
    :alt: PyPI Version
 
+.. |GitHub Version| image:: https://badge.fury.io/gh/pyecore%2Fsetuptools-pyecore.svg
+   :target: https://github.com/pyecore/setuptools-pyecore/releases
+   :alt: GitHub Version
+
 .. |License| image:: https://img.shields.io/github/license/pyecore/setuptools-pyecore.svg
     :target: https://raw.githubusercontent.com/pyecore/setuptools-pyecore/master/LICENSE
     :alt: License

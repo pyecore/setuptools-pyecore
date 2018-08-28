@@ -1,7 +1,7 @@
 setuptools-pyecore
 ==================
 
-|Build Status| |Coverage Status| |License|
+|Build Status| |Coverage Status| |PyPI Version| |GitHub Version| |License|
 
 .. |Build Status| image:: https://travis-ci.org/pyecore/setuptools-pyecore.svg
    :target: https://travis-ci.org/pyecore/setuptools-pyecore

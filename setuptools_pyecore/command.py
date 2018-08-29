@@ -113,7 +113,9 @@ class PyEcoreCommand(setuptools.Command):
         try:
             resource = rset.get_resource(ecore_model_path.as_posix())
             yield resource.contents[0]
-        finally:
+        except Exception:
+            raise
+        else:
             rset.remove_resource(resource)
 
     def run(self):

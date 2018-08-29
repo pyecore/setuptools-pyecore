@@ -58,7 +58,7 @@ class TestPyEcoreCommand:
         assert not command.user_modules
         assert command.auto_register_package == 0
 
-    def test__finalize_options__single_ecore_models(self, command):
+    def test__finalize_options__single_ecore_model(self, command):
         command.ecore_models = 'library'
         command.finalize_options()
 
@@ -147,7 +147,7 @@ class TestPyEcoreCommand:
 
     @mock.patch('pyecore.resources.ResourceSet.get_resource')
     @mock.patch('pyecore.resources.ResourceSet.remove_resource')
-    def test__load_ecore_model(self, mock_remove_resource, mock_get_resource, command):
+    def test__load_ecore_model__successful(self, mock_remove_resource, mock_get_resource, command):
         mock_resource = mock.MagicMock()
         mock_get_resource.return_value = mock_resource
         with command._load_ecore_model(pathlib.Path('standalone/A.ecore')):
@@ -156,6 +156,18 @@ class TestPyEcoreCommand:
         mock_get_resource.assert_called_once_with('standalone/A.ecore')
         mock_remove_resource.assert_called_once_with(mock_resource)
 
+    @mock.patch('pyecore.resources.ResourceSet.get_resource')
+    @mock.patch('pyecore.resources.ResourceSet.remove_resource')
+    def test__load_ecore_model__failed(self, mock_remove_resource, mock_get_resource, command):
+        mock_get_resource.side_effect = FileNotFoundError()
+        with pytest.raises(FileNotFoundError):
+            with command._load_ecore_model(pathlib.Path('standalone/A.ecore')):
+                pass
+
+        mock_get_resource.assert_called_once_with('standalone/A.ecore')
+        assert not mock_remove_resource.called
+
+    @pytest.mark.usefixtures('empty_dir')
     @pytest.mark.usefixtures('configured_command')
     @mock.patch.object(PyEcoreCommand, '_configure_logging')
     def test__run__configure_logging(self, mock_configure_logging, command):
@@ -163,6 +175,7 @@ class TestPyEcoreCommand:
 
         assert mock_configure_logging.called
 
+    @pytest.mark.usefixtures('empty_dir')
     @pytest.mark.usefixtures('configured_command')
     @mock.patch.object(PyEcoreCommand, '_find_ecore_xmi_files')
     def test__run__find_ecore_xmi_files(self, mock_find_ecore_xmi_files, command):

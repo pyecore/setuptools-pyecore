@@ -20,8 +20,11 @@ setuptools-pyecore
    :alt: GitHub Version
 
 .. |License| image:: https://img.shields.io/github/license/pyecore/setuptools-pyecore.svg
-    :target: https://raw.githubusercontent.com/pyecore/setuptools-pyecore/master/LICENSE
-    :alt: License
+   :target: https://raw.githubusercontent.com/pyecore/setuptools-pyecore/master/LICENSE
+   :alt: License
+
+.. contents:: Table of Contents
+   :depth: 2
 
 Overview
 --------

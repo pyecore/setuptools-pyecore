@@ -1,6 +1,7 @@
 """Implementation of the setuptools command 'pyecore'."""
 import collections
 import contextlib
+import distutils.log
 import logging
 import pathlib
 import shlex
@@ -99,6 +100,7 @@ class PyEcoreCommand(setuptools.Command):
         :return: a list of all found Ecore XMI files
         """
         pattern = '*.{}'.format(self._ECORE_FILE_EXT)
+        distutils.log.debug('searching for Ecore XMI files in \'{!s}\''.format(str(base_path)))
         return sorted(base_path.rglob(pattern))
 
     @staticmethod
@@ -111,6 +113,7 @@ class PyEcoreCommand(setuptools.Command):
         """
         rset = pyecore.resources.ResourceSet()
         try:
+            distutils.log.debug('loading \'{!s}\''.format(str(ecore_model_path)))
             resource = rset.get_resource(ecore_model_path.as_posix())
             yield resource.contents[0]
         except Exception:
@@ -133,6 +136,7 @@ class PyEcoreCommand(setuptools.Command):
             with self._load_ecore_model(ecore_xmi_file) as resource:
                 # if user passed Ecore models skip models aren't in list
                 if self.ecore_models and resource.name not in self.ecore_models:
+                    distutils.log.debug('skipping {!r} metamodel'.format(resource.name))
                     continue
 
                 # configure EcoreGenerator
@@ -143,6 +147,9 @@ class PyEcoreCommand(setuptools.Command):
                     kwargs['user_module'] = self.user_modules[resource.name].as_posix()
 
                 #  generate Python classes
+                distutils.log.info(
+                    'running pyecoregen to generate code for {!r} metamodel'.format(resource.name)
+                )
                 pyecoregen.ecore.EcoreGenerator(**kwargs).generate(
                     resource,
                     self.output[resource.name].as_posix()

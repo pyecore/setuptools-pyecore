@@ -43,7 +43,7 @@ Installation
 ``setuptools-pyecore`` can be installed in various ways. To run it the following prerequisites have to be fulfilled:
 
 - Python 3.4+
-- setuptools 29.0.0+
+- setuptools
 
 After installation, the used Python environment has a new setuptools command called ``pyecore``.
 

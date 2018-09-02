@@ -18,7 +18,7 @@ class TestPyEcoreCommand:
 
     @pytest.fixture()
     def configured_command(self, tmpdir, command):
-        command.ecore_models = []
+        command.ecore_models = None
         command.user_modules = {}
 
         default_dir = str(tmpdir.mkdir('gen'))

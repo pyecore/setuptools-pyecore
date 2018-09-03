@@ -105,21 +105,21 @@ class TestPyEcoreCommand:
         assert mock_warn.called
 
     def test__finalize_options__user_modules__single(self, command):
-        command.user_modules = 'a=input/a.pkg.module'
+        command.user_modules = 'a=a.pkg.module'
         command.finalize_options()
 
-        assert pathlib.Path(command.user_modules['a']) == pathlib.Path('input/a.pkg.module')
+        assert command.user_modules['a'] == 'a.pkg.module'
 
     def test__finalize_options__user_modules__multiple(self, command):
-        command.user_modules = 'a=input/a.pkg.module b=input/b.pkg.module'
+        command.user_modules = 'a=a.pkg.module b=b.pkg.module'
         command.finalize_options()
 
-        assert pathlib.Path(command.user_modules['a']) == pathlib.Path('input/a.pkg.module')
-        assert pathlib.Path(command.user_modules['b']) == pathlib.Path('input/b.pkg.module')
+        assert command.user_modules['a'] == 'a.pkg.module'
+        assert command.user_modules['b'] == 'b.pkg.module'
 
     @mock.patch('distutils.log.warn')
     def test__finalize_options__user_modules__invalid_model(self, mock_warn, command):
-        command.user_modules = '=input/a.pkg.module'
+        command.user_modules = '=a.pkg.module'
         command.finalize_options()
 
         assert mock_warn.called
@@ -290,11 +290,11 @@ class TestPyEcoreCommand:
     @pytest.mark.usefixtures('configured_command')
     @mock.patch('pyecoregen.ecore.EcoreGenerator')
     def test__run__user_modules_defined(self, mock_ecore_generator, command):
-        command.user_modules['a'] = pathlib.Path('input/a.pkg.module')
+        command.user_modules['a'] = 'a.pkg.module'
         command.run()
 
         _, kwargs = mock_ecore_generator.call_args
-        assert kwargs['user_module'] == 'input/a.pkg.module'
+        assert kwargs['user_module'] == 'a.pkg.module'
 
     @pytest.mark.usefixtures('standalone_dir')
     @pytest.mark.usefixtures('configured_command')

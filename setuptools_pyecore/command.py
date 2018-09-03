@@ -68,16 +68,15 @@ class PyEcoreCommand(setuptools.Command):
         for token in tokens:
             model, output = token.split('=', 1)
             # check if model and output are specified
-            if not model or not output:
-                logger.warn('Ignoring invalid output specifier {!r}.', token)
-                continue
-
-            # add relative output path to dictionary
-            output_path = pathlib.Path(output).relative_to(base_path)
-            if model == 'default':
-                self.output.default_factory = lambda: output_path
+            if model and output:
+                # add relative output path to dictionary
+                output_path = pathlib.Path(output).relative_to(base_path)
+                if model == 'default':
+                    self.output.default_factory = lambda: output_path
+                else:
+                    self.output[model] = output_path
             else:
-                self.output[model] = output_path
+                logger.warn('Ignoring invalid output specifier {!r}.', token)
 
         # parse user-modules option
         tokens = shlex.split(self.user_modules, comments=True)
@@ -86,12 +85,10 @@ class PyEcoreCommand(setuptools.Command):
         for token in tokens:
             model, user_module = token.split('=', 1)
             # check if model and user module are specified
-            if not model or not user_module:
+            if model and user_module:
+                self.user_modules[model] = user_module
+            else:
                 logger.warn('Ignoring invalid user module specifier {!r}.', token)
-                continue
-
-            user_module_path = pathlib.Path(user_module).relative_to(base_path)
-            self.user_modules[model] = user_module_path
 
     def _configure_logging(self):
         """Configure logging using global verbosity level of distutils."""
@@ -153,7 +150,7 @@ class PyEcoreCommand(setuptools.Command):
                     if self.auto_register_package:
                         kwargs['auto_register_package'] = True
                     if resource.name in self.user_modules:
-                        kwargs['user_module'] = self.user_modules[resource.name].as_posix()
+                        kwargs['user_module'] = self.user_modules[resource.name]
 
                     #  generate Python classes
                     logger.info(

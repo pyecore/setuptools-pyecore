@@ -58,50 +58,78 @@ class TestPyEcoreCommand:
         assert not command.user_modules
         assert command.auto_register_package == 0
 
-    def test__finalize_options__single_ecore_model(self, command):
+    def test__finalize_options__ecore_models__single(self, command):
         command.ecore_models = 'library'
         command.finalize_options()
 
         assert 'library' in command.ecore_models
 
-    def test__finalize_options__multiple_ecore_models(self, command):
+    def test__finalize_options__ecore_models__multiple(self, command):
         command.ecore_models = 'a b'
         command.finalize_options()
 
         assert 'a' in command.ecore_models
         assert 'b' in command.ecore_models
 
-    def test__finalize_options__default_output_dir(self, command):
+    def test__finalize_options__output__default_dir(self, command):
         command.output = 'default=.'
         command.finalize_options()
 
         assert pathlib.Path(command.output['unknown']) == pathlib.Path('.')
 
-    def test__finalize_options__custom_output_dir(self, command):
+    def test__finalize_options__output__custom_dir(self, command):
         command.output = 'library=output/library'
         command.finalize_options()
 
         assert pathlib.Path(command.output['unknown']) == pathlib.Path('.')
         assert pathlib.Path(command.output['library']) == pathlib.Path('output/library')
 
-    def test__finalize_options__custom_default_output_dir(self, command):
+    def test__finalize_options__output__custom_default_dir(self, command):
         command.output = 'default=output/default'
         command.finalize_options()
 
         assert pathlib.Path(command.output['unknown']) == pathlib.Path('output/default')
 
-    def test__finalize_options__single_user_modules(self, command):
+    @mock.patch('distutils.log.warn')
+    def test__finalize_options__output__invalid_model(self, mock_warn, command):
+        command.output = '=output/default'
+        command.finalize_options()
+
+        assert mock_warn.called
+
+    @mock.patch('distutils.log.warn')
+    def test__finalize_options__output__invalid_output(self, mock_warn, command):
+        command.output = 'default='
+        command.finalize_options()
+
+        assert mock_warn.called
+
+    def test__finalize_options__user_modules__single(self, command):
         command.user_modules = 'a=input/a.pkg.module'
         command.finalize_options()
 
         assert pathlib.Path(command.user_modules['a']) == pathlib.Path('input/a.pkg.module')
 
-    def test__finalize_options__multiple_user_modules(self, command):
+    def test__finalize_options__user_modules__multiple(self, command):
         command.user_modules = 'a=input/a.pkg.module b=input/b.pkg.module'
         command.finalize_options()
 
         assert pathlib.Path(command.user_modules['a']) == pathlib.Path('input/a.pkg.module')
         assert pathlib.Path(command.user_modules['b']) == pathlib.Path('input/b.pkg.module')
+
+    @mock.patch('distutils.log.warn')
+    def test__finalize_options__user_modules__invalid_model(self, mock_warn, command):
+        command.user_modules = '=input/a.pkg.module'
+        command.finalize_options()
+
+        assert mock_warn.called
+
+    @mock.patch('distutils.log.warn')
+    def test__finalize_options__user_modules__invalid_user_module(self, mock_warn, command):
+        command.user_modules = 'a='
+        command.finalize_options()
+
+        assert mock_warn.called
 
     test_ids_configure_logging = ['warning', 'info', 'debug', 'undefined']
 

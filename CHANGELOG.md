@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Default output directory.
 
 ## [0.2.0] - 2018-09-03
 ### Added
@@ -19,7 +21,7 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.1.1] - 2018-08-29
 ### Fixed
-- Output folder of `library` sample project.
+- Output directory of `library` sample project.
 - Install requirements of `setuptools-pyecore`.
 - Removal of a resource from a resource set if loading failed.
 

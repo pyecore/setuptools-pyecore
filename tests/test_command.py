@@ -20,10 +20,7 @@ class TestPyEcoreCommand:
     def configured_command(self, tmpdir, command):
         command.ecore_models = None
         command.user_modules = {}
-
-        default_dir = str(tmpdir.mkdir('gen'))
-        command.output = collections.defaultdict(lambda: pathlib.Path(default_dir))
-
+        command.output = collections.defaultdict(lambda: None)
         return command
 
     @pytest.fixture()
@@ -54,7 +51,7 @@ class TestPyEcoreCommand:
         command.finalize_options()
 
         assert not command.ecore_models
-        assert pathlib.Path(command.output['unknown']) == pathlib.Path('.')
+        assert not command.output['unknown']
         assert not command.user_modules
         assert command.auto_register_package == 0
 
@@ -72,26 +69,20 @@ class TestPyEcoreCommand:
         assert 'b' in command.ecore_models
 
     def test__finalize_options__output__default_dir(self, command):
-        command.output = 'default=.'
-        command.finalize_options()
-
-        assert pathlib.Path(command.output['unknown']) == pathlib.Path('.')
-
-    def test__finalize_options__output__custom_dir(self, command):
-        command.output = 'library=output/library'
-        command.finalize_options()
-
-        assert pathlib.Path(command.output['unknown']) == pathlib.Path('.')
-        assert pathlib.Path(command.output['library']) == pathlib.Path('output/library')
-
-    def test__finalize_options__output__custom_default_dir(self, command):
         command.output = 'default=output/default'
         command.finalize_options()
 
         assert pathlib.Path(command.output['unknown']) == pathlib.Path('output/default')
 
+    def test__finalize_options__output__ecore_model_dir(self, command):
+        command.output = 'library=output/library'
+        command.finalize_options()
+
+        assert not command.output['unknown']
+        assert pathlib.Path(command.output['library']) == pathlib.Path('output/library')
+
     @mock.patch('distutils.log.warn')
-    def test__finalize_options__output__invalid_model(self, mock_warn, command):
+    def test__finalize_options__output__invalid_ecore_model_dir(self, mock_warn, command):
         command.output = '=output/default'
         command.finalize_options()
 
@@ -304,3 +295,26 @@ class TestPyEcoreCommand:
 
         _, kwargs = mock_ecore_generator.call_args
         assert 'user_module' not in kwargs
+
+    @pytest.mark.usefixtures('standalone_dir')
+    @pytest.mark.usefixtures('configured_command')
+    @mock.patch('pyecoregen.ecore.EcoreGenerator.generate')
+    def test__run__output_defined(self, mock_generate, command):
+        command.output['a'] = pathlib.Path('output/a')
+        command.run()
+
+        args, _ = mock_generate.call_args
+        assert mock_generate.call_count == 1
+        assert args[0].name == 'a'
+        assert args[1] == 'output/a'
+
+    @pytest.mark.usefixtures('standalone_dir')
+    @pytest.mark.usefixtures('configured_command')
+    @mock.patch('pyecoregen.ecore.EcoreGenerator.generate')
+    def test__run__output_not_defined(self, mock_generate, command):
+        command.run()
+
+        args, _ = mock_generate.call_args
+        assert mock_generate.call_count == 1
+        assert args[0].name == 'a'
+        assert args[1] == '.'

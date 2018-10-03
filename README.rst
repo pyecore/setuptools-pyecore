@@ -130,11 +130,11 @@ Apart from passing options on the command line it's also possible to add a dedic
     [pyecore]
     # Specify Ecore models to generate code for; default: None
     #ecore-models = <ecore-model> [<ecore-model> ...]
-    # Specify directories where output is generated; default: ./
+    # Specify directories where output is generated; default: <ecore-model-dir>
     output = default=gen
     # Dotted names of modules with user-provided mixins to import from generated classes; default: None
-    #user-modules = [<model>=<user module>]
-    #               [<model>=<user module> ...]
+    #user-modules = [<ecore-model>=<user module>]
+    #               [<ecore-model>=<user module> ...]
     # Generate package auto-registration for the PyEcore 'global_registry' (yes|no); default: no
     auto-register-package = yes
 

@@ -55,22 +55,20 @@ class PyEcoreCommand(setuptools.Command):
         as late as possible, ie. after any option assignments from the command-line or from other
         commands have been done.
         """
-        base_path = pathlib.Path('.')
-
         # parse ecore-models option
         if self.ecore_models:
             self.ecore_models = shlex.split(self.ecore_models, comments=True)
 
         # parse output option
         tokens = shlex.split(self.output, comments=True)
-        self.output = collections.defaultdict(lambda: base_path)
+        self.output = collections.defaultdict(lambda: None)
 
         for token in tokens:
             model, output = token.split('=', 1)
             # check if model and output are specified
             if model and output:
                 # add relative output path to dictionary
-                output_path = pathlib.Path(output).relative_to(base_path)
+                output_path = pathlib.Path(output).relative_to('.')
                 if model == 'default':
                     self.output.default_factory = lambda: output_path
                 else:
@@ -152,13 +150,18 @@ class PyEcoreCommand(setuptools.Command):
                     if resource.name in self.user_modules:
                         kwargs['user_module'] = self.user_modules[resource.name]
 
+                    if self.output[resource.name]:
+                        output_dir = self.output[resource.name]
+                    else:
+                        output_dir = ecore_xmi_file.parent
+
                     #  generate Python classes
                     logger.info(
                         'running pyecoregen to generate code for {!r} metamodel'.format(resource.name)
                     )
                     pyecoregen.ecore.EcoreGenerator(**kwargs).generate(
                         resource,
-                        self.output[resource.name].as_posix()
+                        output_dir.as_posix()
                     )
                 else:
                     logger.debug('skipping {!r} metamodel'.format(resource.name))

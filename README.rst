@@ -1,24 +1,41 @@
 setuptools-pyecore
 ==================
 
-|Build Status| |Coverage Status| |License|
+|Build Status| |Coverage Status| |PyPI Version| |GitHub Version| |License|
 
-.. |Build Status| image:: https://travis-ci.com/ferraith/setuptools-pyecore.svg
-   :target: https://travis-ci.com/ferraith/setuptools-pyecore
+.. |Build Status| image:: https://travis-ci.org/pyecore/setuptools-pyecore.svg
+   :target: https://travis-ci.org/pyecore/setuptools-pyecore
    :alt: Build Status
 
-.. |Coverage Status| image:: https://coveralls.io/repos/github/ferraith/setuptools-pyecore/badge.svg?branch=master
-   :target: https://coveralls.io/github/ferraith/setuptools-pyecore?branch=master
+.. |Coverage Status| image:: https://coveralls.io/repos/github/pyecore/setuptools-pyecore/badge.svg?branch=master
+   :target: https://coveralls.io/github/pyecore/setuptools-pyecore?branch=master
    :alt: Coverage Status
 
-.. |License| image:: https://img.shields.io/github/license/ferraith/setuptools-pyecore.svg
-    :target: https://raw.githubusercontent.com/ferraith/setuptools-pyecore/master/LICENSE
-    :alt: License
+.. |PyPI Version| image:: https://badge.fury.io/py/setuptools-pyecore.svg
+   :target: https://pypi.org/project/setuptools-pyecore
+   :alt: PyPI Version
+
+.. |GitHub Version| image:: https://badge.fury.io/gh/pyecore%2Fsetuptools-pyecore.svg
+   :target: https://github.com/pyecore/setuptools-pyecore/releases
+   :alt: GitHub Version
+
+.. |License| image:: https://img.shields.io/github/license/pyecore/setuptools-pyecore.svg
+   :target: https://raw.githubusercontent.com/pyecore/setuptools-pyecore/master/LICENSE
+   :alt: License
+
+.. contents:: Table of Contents
+   :depth: 2
 
 Overview
 --------
 
 A ``setuptools`` command for generating Python code from Ecore models.
+
+This is an extension for `setuptools <https://pypi.org/project/setuptools/>`__ integrating the `pyecoregen <https://github.com/pyecore/pyecoregen>`__ code generator into the Python packaging process. It encapsulates ``pyecoregen`` and provides the user a ``setuptools`` command called ``pyecore`` to control the generation process.
+
+In a basic setup the user doesn't have to configure the generation process at all because ``setuptools-pyecore`` discovers Ecore models located in the current working directory and triggers the code generation for each detected Ecore model. Also a meaningful output folder is chosen automatically.
+
+Of course the user has to possibility to customize the generation process. The command line options of ``pyecoregen`` are also available through the ``pyecore`` setuptools command. The user has the choice to pass the options on the command line or configure the code generation in a dedicated section in the ``setup.cfg`` file.
 
 Installation
 ------------
@@ -35,7 +52,7 @@ From Source Code
 
 ::
 
-    > git clone https://github.com/ferraith/setuptools-pyecore.git
+    > git clone https://github.com/pyecore/setuptools-pyecore.git
     > cd setuptools-pyecore
     > pip install .
 
@@ -113,11 +130,11 @@ Apart from passing options on the command line it's also possible to add a dedic
     [pyecore]
     # Specify Ecore models to generate code for; default: None
     #ecore-models = <ecore-model> [<ecore-model> ...]
-    # Specify directories where output is generated; default: ./
+    # Specify directories where output is generated; default: <ecore-model-dir>
     output = default=gen
     # Dotted names of modules with user-provided mixins to import from generated classes; default: None
-    #user-modules = [<model>=<user module>]
-    #               [<model>=<user module> ...]
+    #user-modules = [<ecore-model>=<user module>]
+    #               [<ecore-model>=<user module> ...]
     # Generate package auto-registration for the PyEcore 'global_registry' (yes|no); default: no
     auto-register-package = yes
 

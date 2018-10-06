@@ -6,11 +6,11 @@ import setuptools
 # need to guard script here due to reentrance while testing multiprocessing:
 if __name__ == '__main__':
     needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
-    pytest_runner_opt = ['pytest-runner>=4.0,<5dev'] if needs_pytest else []
+    pytest_runner_opt = ['pytest-runner~=4.0,<5dev'] if needs_pytest else []
 
     setuptools.setup(
         name='setuptools-pyecore',
-        version='0.0.1',
+        version='0.2.0',
         packages=setuptools.find_packages(),
         entry_points={
             'distutils.commands': [
@@ -18,9 +18,10 @@ if __name__ == '__main__':
             ]
         },
         python_requires='>=3.4',
+        install_requires=['pyecore', 'pyecoregen'],
         tests_require=['pytest'],
-        setup_requires=['pyecoregen'] + pytest_runner_opt,
-        url='https://github.com/ferraith/setuptools-pyecore',
+        setup_requires=pytest_runner_opt,
+        url='https://github.com/pyecore/setuptools-pyecore',
         license='BSD 3-Clause',
         author='Andreas Schmidl',
         author_email='Andreas.Schmidl@gmail.com',
@@ -30,7 +31,7 @@ if __name__ == '__main__':
         platforms=['any'],
         keywords='setuptools model metamodel EMF Ecore code generator',
         classifiers=[
-            'Development Status :: 3 - Alpha',
+            'Development Status :: 4 - Beta',
             'Intended Audience :: Developers',
             'Topic :: Software Development',
             'License :: OSI Approved :: BSD License',

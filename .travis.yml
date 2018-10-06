@@ -21,3 +21,27 @@ after_success:
 
 before_deploy:
   python setup.py bdist_wheel
+
+deploy:
+  - provider: releases
+    api_key:
+      secure: fPYpiTTdpBQXFgF55rvxPpj0Hu7L29+6c9dxdjvQZiCV6FJCu1rMgukmt76x4Cg2tOdpytnFZXLP7lqo9g0KZnJVVrWRGWB7fch5xcz+kmOdwPqjA5L18vRybkuTczZdC1y4v9mHMpT58JA+N8zIy1oJN0UCb3ZrbLmZkiXLetHNW4vCDwR5OuNSnxhR0OQl0UQ8Z7JGDIXzVbUGmCWXJRAZLkTzViaTfQCDnu5H0zLWlQ8Y6NsOC1QBpSPhQIb9IKURiTKc1ze7VpULA5d/FJ5oDyY+FT6amgiqBw3sxbSHeH5ztb17IH5JEzAkKdPODwee/E/6oOf8Dnu9QlQctHRPfCXMFm+hPDaZHRx+JJIoU4/KX0jWU9aTr2K1CWtqDzRWtci1iOdF018YYAjKUaNcnC6JKtdJW7sSCtCyfzq6y2HTbpaqNJ/psJQhIapH4+YsxjWr0ap/PjR0eER1EfVsWtnDRnmpqVamXsBpo5qq1XfEPC6KVQfTqN2YFWkC0RwKLMnRCv3jg6gVjA1RNYwCLU+Ve0d8Kln4/9w3eYl2L8LKNCfdNq5HqCMhWo+5V5m242mhT+spKcVnndEuW4CeXkEtMgtSZW3Jnd9v5F18VECaHPJpFLVwZ377845jBt1LmTjZjY62fBp2qKYJbpHJlqLKZz4eU4CYT28Jlv8=
+    file_glob: true
+    file: "dist/*.whl"
+    skip_cleanup: true
+    on:
+      repo: pyecore/setuptools-pyecore
+      tags: true
+      python: '3.6'
+
+  - provider: pypi
+    user: pyecore
+    password:
+      secure: CUzVHEQ0AwW5/AL1DTvNIkUr6t6yxGZrPUjjWsDVh+R1Rm+HaHOJ+OeRjs3zr8BZbSCTriIZ40tgt0/p+4ZfOFi9RmkIDko5drF7w9fk0kuS9hy4O3FZ3p/9itwqJVaR0MYPWfD+GKlnDgJQbmb+z76vIxJJ91cr32G4Fr+aOiOJHF8NniHC0Z/TampvSVNbz//p1sEVGof6PMa1iJwmjYpOoBQ3pVqdiIagYn8rgowqSneCMQnCcezBlbfL4x1bIg3mjSltJDmFfvRbt9vao1VVQBXlddkOO/B0JBlPC8TLUFCXWYshh4I8pLHn8JXMWqbScpjyKjAn8I0WlPP/IndsFu1sAOAsjQfYZwi5C59k7gm60lylEIAq7iLQHB078FutibCGdTxWRkpyMsu0JGBZMBs+2g6IO6/V17mz3tXEzsl0/OYKsCLrXA6AKm+EXeKbSfVXAl5DfCrGcNAYViH6ySMt9LDG8/uqfbtUL4whcSGTpqWTkBF1C9WiktHvCgOhd/BQR/mJctXwibCHnN1RmXhRNxvHQCyvAFll+yQS4mrRNaeBIR2u1sAZiI17T23Stu9qbMZ55nIVpRbpHVpYFOnBIOpdHg6dFEeFGdVcwehMg1zO55sOywBMXwacJX0qeqdDTiIjLKARH3Jrwsx5lCnr/osEMhXK3jdN0os=
+    distributions: sdist bdist_wheel
+    skip_cleanup: true
+    skip_upload_docs: true
+    on:
+      repo: pyecore/setuptools-pyecore
+      tags: true
+      python: '3.6'

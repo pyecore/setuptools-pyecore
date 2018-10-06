@@ -1,10 +1,12 @@
 language: python
 
-python:
-  - '3.4'
-  - '3.5'
-  - '3.6'
-  - '3.7'
+matrix:
+  include:
+    - python: 3.5
+    - python: 3.6
+    - python: 3.7
+      dist: xenial
+      sudo: true
 
 install:
   - python -m pip install -U pip setuptools
@@ -32,7 +34,7 @@ deploy:
     on:
       repo: pyecore/setuptools-pyecore
       tags: true
-      python: '3.6'
+      python: '3.7'
 
   - provider: pypi
     user: pyecore
@@ -44,4 +46,4 @@ deploy:
     on:
       repo: pyecore/setuptools-pyecore
       tags: true
-      python: '3.6'
+      python: '3.7'
